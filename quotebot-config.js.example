@@ -1,0 +1,10 @@
+var config = {};
+
+config.discord_token = "";
+config.discord_channel = "";
+
+//these are in seconds
+config.rand_min_time = 1800;
+config.rand_max_time = 7200;
+
+module.exports = config;

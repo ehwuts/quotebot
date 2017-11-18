@@ -1,0 +1,3 @@
+discordian quotebot for discord, powered by eris
+
+setup: npm install eris && npm install download
