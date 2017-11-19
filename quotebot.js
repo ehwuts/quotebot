@@ -6,14 +6,11 @@ var axios = require("axios");
 var discord = new Eris(config.discord_token);
 var timer;
 
-function parseBodyAndFinallyUseThisDestParam(response, dest) {	
-	discord.createMessage(dest, response.data.match(/<div class="quote"[^>]+>([^>]+)<\/div/)[1]);
-}
-
 function getQuote(dest) {
 	axios.get("https://discordianquotes.com/random")
 	.then((response) => {
-		parseBodyAndFinallyUseThisDestParam(response, dest);
+		var quote = response.data.match(/<div class="quote"[^>]+>([^>]+)<\/div/)[1];
+		discord.createMessage(dest, quote);
 	})
 	.catch((e) => {
 		console.log(":err_axios " + e);
@@ -21,9 +18,9 @@ function getQuote(dest) {
 }
 
 function getQuoteAndRequeue(dest) {
-	var delay_next = Math.round(Math.random() * (config.rand_max_time - config.rand_min_time)) + config.rand_min_time;
+	var delay_next = (Math.round(Math.random() * (config.rand_max_time - config.rand_min_time)) + config.rand_min_time;
 	getQuote(dest);
-	timer = setTimeout(getQuoteAndRequeue, delay_next);
+	timer = setTimeout(function () { getQuoteAndRequeue(dest); } , delay_next);
 }
 
 
