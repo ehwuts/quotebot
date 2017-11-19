@@ -1,15 +1,17 @@
 const config = require("./quotebot-config.js");
 
 const Eris = require("eris");
+const Entities = require("html-entities").AllHtmlEntities;
 var axios = require("axios");
 
+const entities = new Entities();
 var discord = new Eris(config.discord_token);
 var timer;
 
 function getQuote(dest) {
 	axios.get("https://discordianquotes.com/random")
 	.then((response) => {
-		var quote = response.data.match(/<div class="quote"[^>]+>([^>]+)<\/div/)[1];
+		var quote = entities.decode(response.data.match(/<div class="quote"[^>]+>([^>]+)<\/div/)[1]);
 		discord.createMessage(dest, quote);
 	})
 	.catch((e) => {
