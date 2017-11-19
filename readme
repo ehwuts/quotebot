@@ -4,3 +4,6 @@ currentscrapes quotes off of page requests to https://discordianquotes.com/rando
 
 dependencies:
 	eris, axios, html-entities
+
+license:
+	The Unlicense
