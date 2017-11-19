@@ -1,3 +1,6 @@
-discordian quotebot for discord, powered by eris
+discordian quotebot for discord
+scrapes quotes off of page requests to https://discordianquotes.com/random
 
-setup: npm install eris && npm install download
+powered by eris, as is only fitting, and axios (because we're scraping a random web redirect it's a fairly low footprint library for its robustness)
+
+setup: npm install eris && npm install axios

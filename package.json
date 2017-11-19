@@ -1,0 +1,23 @@
+{
+  "name": "quotebot",
+  "version": "1.0.0",
+  "description": "discordian quotebot for discord, powered by eris",
+  "main": "quotebot.js",
+  "dependencies": {
+    "eris": "^0.8.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehwuts/quotebot.git"
+  },
+  "author": "ehwuts",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ehwuts/quotebot/issues"
+  },
+  "homepage": "https://github.com/ehwuts/quotebot#readme"
+}

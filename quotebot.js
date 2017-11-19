@@ -1,13 +1,23 @@
 const config = require("./quotebot-config.js");
 
-const download = require('download');
 const Eris = require("eris");
+var axios = require("axios");
 
 var discord = new Eris(config.discord_token);
 var timer;
 
+function parseBodyAndFinallyUseThisDestParam(response, dest) {	
+	discord.createMessage(dest, response.data.match(/<div class="quote"[^>]+>([^>]+)<\/div/)[1]);
+}
+
 function getQuote(dest) {
-	
+	axios.get("https://discordianquotes.com/random")
+	.then((response) => {
+		parseBodyAndFinallyUseThisDestParam(response, dest);
+	})
+	.catch((e) => {
+		console.log(":err_axios " + e);
+	});
 }
 
 function getQuoteAndRequeue(dest) {
