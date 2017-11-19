@@ -4,6 +4,12 @@ currently scrapes quotes off of page requests to https://discordianquotes.com/ra
 
 dependencies:
 	eris, axios, html-entities
+	
+usage:
+	download and install deps or whatever
+	`cp quotebot-config.js.example quotebot-config.js`
+	edit the values for your channel id and bot secret
+	`node quotebot`
 
 license:
 	The Unlicense
