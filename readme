@@ -1,6 +1,6 @@
 randomly sends quotes from discordianquotes to discord
 
-currentscrapes quotes off of page requests to https://discordianquotes.com/random
+currently scrapes quotes off of page requests to https://discordianquotes.com/random
 
 dependencies:
 	eris, axios, html-entities
