@@ -18,7 +18,7 @@ function getQuote(dest) {
 }
 
 function getQuoteAndRequeue(dest) {
-	var delay_next = (Math.round(Math.random() * (config.rand_max_time - config.rand_min_time)) + config.rand_min_time;
+	var delay_next = (Math.round(Math.random() * (config.rand_max_time - config.rand_min_time)) + config.rand_min_time) * 1000;
 	getQuote(dest);
 	timer = setTimeout(function () { getQuoteAndRequeue(dest); } , delay_next);
 }
