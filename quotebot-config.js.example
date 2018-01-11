@@ -1,10 +1,21 @@
 var config = {};
 
+//super secret app token
 config.discord_token = "";
+//channel id
 config.discord_channel = "";
 
 //these are in seconds
 config.rand_min_time = 1800;
 config.rand_max_time = 7200;
+
+//out of 1000
+config.rand_rhyme_chance = 0;
+//seconds before another random rhyme can trigger
+config.rand_rhyme_timeout = 1200;
+
+//out of 1000
+config.response_ignore_chance = 20;
+config.response_rhyme_chance = 700;
 
 module.exports = config;

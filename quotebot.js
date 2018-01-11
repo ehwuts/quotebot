@@ -7,6 +7,11 @@ var axios = require("axios");
 const entities = new Entities();
 var discord = new Eris(config.discord_token);
 var timer;
+var rhymelock = 0;
+
+function simpleRandInt(min, max) {
+	return (Math.round(Math.random() * (max - min)) + min);
+}
 
 function getQuote(dest) {
 	axios.get("https://discordianquotes.com/random")
@@ -19,12 +24,16 @@ function getQuote(dest) {
 	});
 }
 
+function getRhymingQuote(dest, str) {
+	console.log("Rhyming NYI. returning random instead.");
+	getQuote(dest);
+}
+
 function getQuoteAndRequeue(dest) {
-	var delay_next = (Math.round(Math.random() * (config.rand_max_time - config.rand_min_time)) + config.rand_min_time) * 1000;
+	var delay_next = simpleRandInt(config.rand_min_time, config.rand_max_time) * 1000;
 	getQuote(dest);
 	timer = setTimeout(function () { getQuoteAndRequeue(dest); } , delay_next);
 }
-
 
 discord.on("ready", () => {
 	console.log(":quotebot online.");
@@ -33,8 +42,17 @@ discord.on("ready", () => {
 
 discord.on("messageCreate", (msg) => {
 	if (msg.channel.id === config.discord_channel && msg.author.id != discord.user.id) {
-		if (msg.content.toLowerCase() === "!quote") {
-			getQuote(msg.channel.id);
+		if (msg.content.toLowerCase().indexOf(discord.user.username.toLowerCase()) !== -1) {
+			if (simpleRandInt(config.response_ignore_chance, 1000) >= config.response_ignore_chance) {
+				if (simpleRandInt(config.response_rhyme_chance, 1000) < config.response_rhyme_chance) {
+					getRhymingQuote(msg.channel.id, msg.content);
+				} else {
+					getQuote(msg.channel.id);
+				}
+			}
+		} else if ((new Date()).getTime() > rhymelock && simpleRandInt(config.rand_rhyme_chance, 1000) < config.rand_rhyme_chance) {
+			getRhymingQuote(msg.channel.id, msg.content);
+			rhymelock = (new Date()).getTime() + config.response_rhyme_timeout;
 		}
 	}
 });
