@@ -43,14 +43,14 @@ discord.on("ready", () => {
 discord.on("messageCreate", (msg) => {
 	if (msg.channel.id === config.discord_channel && msg.author.id != discord.user.id) {
 		if (msg.content.toLowerCase().indexOf(discord.user.username.toLowerCase()) !== -1) {
-			if (simpleRandInt(config.response_ignore_chance, 1000) >= config.response_ignore_chance) {
-				if (simpleRandInt(config.response_rhyme_chance, 1000) < config.response_rhyme_chance) {
+			if (simpleRandInt(0, 1000) >= config.response_ignore_chance) {
+				if (simpleRandInt(0, 1000) < config.response_rhyme_chance) {
 					getRhymingQuote(msg.channel.id, msg.content);
 				} else {
 					getQuote(msg.channel.id);
 				}
 			}
-		} else if ((new Date()).getTime() > rhymelock && simpleRandInt(config.rand_rhyme_chance, 1000) < config.rand_rhyme_chance) {
+		} else if ((new Date()).getTime() > rhymelock && simpleRandInt(0, 1000) < config.rand_rhyme_chance) {
 			getRhymingQuote(msg.channel.id, msg.content);
 			rhymelock = (new Date()).getTime() + config.response_rhyme_timeout;
 		}
