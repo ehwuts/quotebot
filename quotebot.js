@@ -6,7 +6,7 @@ var axios = require("axios");
 
 const entities = new Entities();
 var discord = new Eris(config.discord_token);
-var timer;
+var timer = null;
 var rhymelock = 0;
 
 function simpleRandInt(min, max) {
@@ -30,14 +30,14 @@ function getRhymingQuote(dest, str) {
 }
 
 function getQuoteAndRequeue(dest) {
-	var delay_next = simpleRandInt(config.rand_min_time, config.rand_max_time) * 1000;
+	let delay_next = simpleRandInt(config.rand_min_time, config.rand_max_time) * 1000;
 	getQuote(dest);
 	timer = setTimeout(function () { getQuoteAndRequeue(dest); } , delay_next);
 }
 
 discord.on("ready", () => {
 	console.log(":quotebot online.");
-	getQuoteAndRequeue(config.discord_channel);
+	if (timer !== null) getQuoteAndRequeue(config.discord_channel);
 });
 
 discord.on("messageCreate", (msg) => {
